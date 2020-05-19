@@ -11,7 +11,7 @@
       @row-click="rowClik"
       :row-class-name="tableRowClassName"
     >
-      
+
       <el-table-column
         prop="id"
         label="分类ID"
@@ -31,11 +31,11 @@
         </template>
 
         <template slot-scope="scope">
-          <HintButton title="添加子分类" :disabled="!scope.row.level" 
+          <HintButton title="添加子分类" :disabled="!scope.row.level"
             size="mini" type="primary" icon="el-icon-plus"/>
-          <HintButton title="修改分类" 
+          <HintButton title="修改分类"
             size="mini" type="primary" icon="el-icon-edit"/>
-          <HintButton title="删除分类" 
+          <HintButton title="删除分类"
             size="mini" type="danger" icon="el-icon-delete"/>
         </template>
       </el-table-column>
@@ -44,12 +44,14 @@
 </template>
 
 <script>
+
 export default {
+
   name: 'CategoryList',
 
   data() {
     return {
-      categorys: [], //用于存储所有分类列表的数组
+      categorys: [],
       categoryName: ''
     };
   },
@@ -58,7 +60,6 @@ export default {
     this.getCategorys1()
   },
 
-  //方法集合
   methods: {
     getCategorys1 () {
       this.$API.category.getCategorys1().then(result => {
@@ -68,10 +69,10 @@ export default {
           c.level = 1
         })
         this.categorys = categorys
-        
+
       })
     },
-    
+
     async load (tree, treeNode, resolve) {
       console.log('---', tree, treeNode)
       if (tree.level===1) {
@@ -118,10 +119,9 @@ export default {
     },
 
     tableRowClassName({row, rowIndex}) {
-      // console.log('+++', row, rowIndex)
       if (row.level === 2) {
         return 'level2-row'
-      } 
+      }
     },
   }
 }

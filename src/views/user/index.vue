@@ -16,9 +16,11 @@
       <el-button type="default" @click="resetData()">清空</el-button>
     </el-form>
 
-    <!-- 表格组件: 显示列表 -->
+    <!--
+      表格组件: 显示列表
+     -->
     <el-table
-      
+
       border
       stripe
       fit
@@ -68,26 +70,32 @@
 </template>
 
 <script type="text/ecmascript-6">
+
   export default {
+
     name: 'UserList',
 
     data () {
       return {
-        users: [], // 当前页的用户列表
-        total: 0, // 数据库中的总记录数
-        page: 1, // 默认页码
-        limit: 10, // 每页记录数
-        loading: false, // 是否正在请求中
-        searchObj: {}, // 查询表单对象
+        users: [],
+        total: 0,
+        page: 1,
+        limit: 10,
+        loading: false,
+        searchObj: {},
       }
     },
+
 
     // 初始获取第1页的用户列表显示
     mounted () {
       this.getUsers()
     },
 
+
     methods: {
+
+
       getUsers (page=1) {
         this.loading = true
         this.$API.clientUser.getPageList(page, this.limit, this.searchObj)
@@ -99,7 +107,7 @@
           })
       },
 
-      // 当页码发生改变的时候
+      // 当页码发生改变时
       changeSize(size) {
         console.log(size)
         this.limit = size
@@ -110,6 +118,7 @@
         this.searchObj = {}
         this.getUsers()
       }
+
     }
   }
 </script>

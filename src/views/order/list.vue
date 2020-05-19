@@ -45,8 +45,7 @@
       <el-button type="default" @click="resetData()">清空</el-button>
     </el-form>
 
-
-    <!-- 订单列表 -->
+    <!-- 订单 -->
     <el-table
       border
       stripe
@@ -115,18 +114,17 @@ export default {
 
   data() {
     return {
-      loading: true, // 数据是否正在加载
-      list: null, // 订单列表
-      total: 0, // 数据库中的总记录数
-      page: 1, // 默认页码
-      limit: 5, // 每页记录数
-      searchObj: {}, // 查询表单对象
-      multipleSelection: [], // 批量选择中选择的记录列表
+      loading: true,
+      list: null,
+      total: 0,
+      page: 1,
+      limit: 5,
+      searchObj: {},
+      multipleSelection: [],
       times: []
     }
   },
 
-  // 生命周期函数：内存准备完毕，页面尚未渲染
   mounted() {
     this.getOrders()
   },
@@ -144,41 +142,33 @@ export default {
 
   methods: {
 
-    /* 
-    当页码发生改变的时候
-    */
+    /*页码发生改变时*/
     changeSize(size) {
       console.log(size)
       this.limit = size
       this.getOrders(1)
     },
 
-    /* 
-    加载订单列表数据
-    */
+    /*加载订单列表数据*/
     getOrders(page = 1) {
       this.page = page
-
       this.$API.order.getPageList(this.page, this.limit,this.searchObj).then(
         result => {
           this.list = result.data.records
           this.total = result.data.total
-
           // 数据加载并绑定成功
           this.loading = false
         }
       )
     },
 
-    /* 
-    重置查询表单
-    */
+    /*重置查询表单*/
     resetData() {
       this.searchObj = {}
       this.getOrders()
     },
 
-    /* 
+    /*
     根据id删除数据 (没有接口)
     */
     deleteOrder(id) {
@@ -186,8 +176,8 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => { // promise
-        // 点击确定，远程调用ajax
+      }).then(() => {
+   // 点击确定，远程调用ajax
         return this.$API.order.removeById(id)
       }).then((result) => {
         this.getOrders(this.page)
@@ -205,7 +195,6 @@ export default {
       })
     },
 
-    // 当表格复选框选项发生变化的时候触发
     handleSelectionChange(selection) {
       console.log('handleSelectionChange......')
       console.log(selection)

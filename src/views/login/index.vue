@@ -41,15 +41,7 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登  陆</el-button>
-
-      <!-- 
-        <div class="tips">
-          <span style="margin-right:20px;">username: admin</span>
-          <span> password: 111111</span>
-        </div> 
-      -->
-
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登 陆</el-button>
     </el-form>
   </div>
 </template>
@@ -57,9 +49,11 @@
 <script>
 
 export default {
+
   name: 'Login',
-  
+
   data() {
+
     const validateUsername = (rule, value, callback) => {
       if (value.length<4) {
         callback(new Error('Please enter the correct user name'))
@@ -67,6 +61,7 @@ export default {
         callback()
       }
     }
+
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
         callback(new Error('The password can not be less than 6 digits'))
@@ -74,6 +69,7 @@ export default {
         callback()
       }
     }
+
     return {
       loginForm: {
         username: 'admin',
@@ -88,17 +84,19 @@ export default {
       redirect: undefined
     }
   },
-  
+
   watch: {
     $route: {
       handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
-      immediate: true // 监视回调初始就会执行一次, 而不是改变才调用
+      //监视回调初始就会执行一次, 而不是改变才调用---------------------------------------！！！！！！！！！！！！！！！！！
+      immediate: true
     }
   },
-  
+
   methods: {
+
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -109,6 +107,7 @@ export default {
         this.$refs.password.focus()
       })
     },
+
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
